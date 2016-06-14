@@ -39,6 +39,8 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
   private static final String SORT_BY_ACTIVITY_ID = "activityId";
   private static final String SORT_BY_PROCESS_DEFINITION_ID = "processDefinitionId";
   private static final String SORT_BY_PROCESS_DEFINITION_KEY = "processDefinitionKey";
+  private static final String SORT_BY_CASE_DEFINITION_ID = "caseDefinitionId";
+  private static final String SORT_BY_CASE_DEFINITION_KEY = "caseDefinitionKey";
   private static final String SORT_BY_JOB_TYPE = "jobType";
   private static final String SORT_BY_JOB_CONFIGURATION = "jobConfiguration";
   private static final String SORT_BY_TENANT_ID = "tenantId";
@@ -51,6 +53,8 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
     VALID_SORT_BY_VALUES.add(SORT_BY_ACTIVITY_ID);
     VALID_SORT_BY_VALUES.add(SORT_BY_PROCESS_DEFINITION_ID);
     VALID_SORT_BY_VALUES.add(SORT_BY_PROCESS_DEFINITION_KEY);
+    VALID_SORT_BY_VALUES.add(SORT_BY_CASE_DEFINITION_ID);
+    VALID_SORT_BY_VALUES.add(SORT_BY_CASE_DEFINITION_KEY);
     VALID_SORT_BY_VALUES.add(SORT_BY_JOB_TYPE);
     VALID_SORT_BY_VALUES.add(SORT_BY_JOB_CONFIGURATION);
     VALID_SORT_BY_VALUES.add(SORT_BY_TENANT_ID);
@@ -60,6 +64,8 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
   protected String[] activityIdIn;
   protected String processDefinitionId;
   protected String processDefinitionKey;
+  protected String caseDefinitionId;
+  protected String caseDefinitionKey;
   protected String jobType;
   protected String jobConfiguration;
   protected Boolean active;
@@ -93,6 +99,16 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
   @CamundaQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
+  }
+
+  @CamundaQueryParam("caseDefinitionId")
+  public void setCaseDefinitionId(String caseDefinitionId) {
+    this.caseDefinitionId = caseDefinitionId;
+  }
+
+  @CamundaQueryParam("caseDefinitionKey")
+  public void setCaseDefinitionKey(String caseDefinitionKey) {
+    this.caseDefinitionKey = caseDefinitionKey;
   }
 
   @CamundaQueryParam("jobType")
@@ -163,6 +179,14 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
       query.processDefinitionKey(processDefinitionKey);
     }
 
+    if (caseDefinitionId != null) {
+      query.caseDefinitionId(caseDefinitionId);
+    }
+
+    if (caseDefinitionKey != null) {
+      query.caseDefinitionKey(caseDefinitionKey);
+    }
+
     if (jobType != null) {
       query.jobType(jobType);
     }
@@ -204,6 +228,10 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
       query.orderByProcessDefinitionId();
     } else if (sortBy.equals(SORT_BY_PROCESS_DEFINITION_KEY)) {
       query.orderByProcessDefinitionKey();
+    } else if (sortBy.equals(SORT_BY_CASE_DEFINITION_ID)) {
+      query.orderByCaseDefinitionId();
+    } else if (sortBy.equals(SORT_BY_CASE_DEFINITION_KEY)) {
+      query.orderByCaseDefinitionKey();
     } else if (sortBy.equals(SORT_BY_JOB_TYPE)) {
       query.orderByJobType();
     } else if (sortBy.equals(SORT_BY_JOB_CONFIGURATION)) {

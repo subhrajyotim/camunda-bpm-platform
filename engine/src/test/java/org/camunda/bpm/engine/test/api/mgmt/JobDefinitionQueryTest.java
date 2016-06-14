@@ -20,6 +20,7 @@ import org.camunda.bpm.engine.impl.jobexecutor.TimerStartEventJobHandler;
 import org.camunda.bpm.engine.impl.test.PluggableProcessEngineTestCase;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.management.JobDefinitionQuery;
+import org.camunda.bpm.engine.repository.CaseDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.test.Deployment;
 
@@ -121,6 +122,42 @@ public class JobDefinitionQueryTest extends PluggableProcessEngineTestCase {
 
     try {
       managementService.createJobDefinitionQuery().processDefinitionKey(null);
+      fail("A ProcessEngineExcpetion was expected.");
+    } catch (ProcessEngineException e) {}
+  }
+
+  @Deployment(resources = {"org/camunda/bpm/engine/test/api/mgmt/JobDefinitionQueryTest.testBase.cmmn"})
+  public void testQueryByCaseDefinitionId(){
+    CaseDefinition caseDefinition = repositoryService.createCaseDefinitionQuery().singleResult();
+    JobDefinitionQuery query = managementService.createJobDefinitionQuery().caseDefinitionId(caseDefinition.getId());
+    verifyQueryResults(query,1);
+  }
+
+  @Deployment(resources = {"org/camunda/bpm/engine/test/api/mgmt/JobDefinitionQueryTest.testBase.cmmn"})
+  public void testQueryByInvalidCaseDefinitionId(){
+    JobDefinitionQuery query = managementService.createJobDefinitionQuery().caseDefinitionId("invalid");
+    verifyQueryResults(query, 0);
+
+    try {
+      managementService.createJobDefinitionQuery().caseDefinitionId(null);
+      fail("A ProcessEngineExcpetion was expected.");
+    } catch (ProcessEngineException e) {}
+  }
+
+  @Deployment(resources = {"org/camunda/bpm/engine/test/api/mgmt/JobDefinitionQueryTest.testBase.cmmn"})
+  public void testQueryByCaseDefinitionKey(){
+    CaseDefinition caseDefinition = repositoryService.createCaseDefinitionQuery().singleResult();
+    JobDefinitionQuery query = managementService.createJobDefinitionQuery().caseDefinitionKey(caseDefinition.getKey());
+    verifyQueryResults(query,1);
+  }
+
+  @Deployment(resources = {"org/camunda/bpm/engine/test/api/mgmt/JobDefinitionQueryTest.testBase.cmmn"})
+  public void testQueryByInvalidCaseDefinitionKey() {
+    JobDefinitionQuery query = managementService.createJobDefinitionQuery().caseDefinitionKey("invalid");
+    verifyQueryResults(query, 0);
+
+    try {
+      managementService.createJobDefinitionQuery().caseDefinitionKey(null);
       fail("A ProcessEngineExcpetion was expected.");
     } catch (ProcessEngineException e) {}
   }

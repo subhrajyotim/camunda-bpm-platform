@@ -41,6 +41,12 @@ public interface JobQuery extends Query<JobQuery, Job> {
   /** Only select jobs which exist for the given process definition key. **/
   JobQuery processDefinitionKey(String processDefinitionKey);
 
+  /** Only select jobs which exist for the given case definition id. **/
+  JobQuery caseDefinitionId(String caseDefinitionId);
+
+  /** Only select jobs which exist for the given case definition key. **/
+  JobQuery caseDefinitionKey(String caseDefinitionKey);
+
   /** Only select jobs which exist for the given execution */
   JobQuery executionId(String executionId);
 
@@ -160,6 +166,7 @@ public interface JobQuery extends Query<JobQuery, Job> {
   /** Order by process definition key (needs to be followed by {@link #asc()} or {@link #desc()}). */
   JobQuery orderByProcessDefinitionKey();
 
+
   /** Order by execution id (needs to be followed by {@link #asc()} or {@link #desc()}). */
   JobQuery orderByExecutionId();
 
@@ -168,5 +175,12 @@ public interface JobQuery extends Query<JobQuery, Job> {
    * Note that the ordering of job without tenant id is database-specific.
    */
   JobQuery orderByTenantId();
+
+  /** Order by case definition id (needs to be followed by {@link #asc()} or {@link #desc()}). */
+  JobQuery orderByCaseDefinitionId();
+
+  /** Order by case definition key (needs to be followed by {@link #asc()} or {@link #desc()}). */
+  JobQuery orderByCaseDefinitionKey();
+
 
 }

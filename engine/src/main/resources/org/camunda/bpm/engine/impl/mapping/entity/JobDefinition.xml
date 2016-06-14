@@ -177,6 +177,12 @@
       <if test="processDefinitionKey != null">
         and RES.PROC_DEF_KEY_ = #{processDefinitionKey}
       </if>
+      <if test="caseDefinitionKey != null">
+        and RES.CASE_DEF_KEY_ = #{caseDefinitionKey}
+      </if>
+      <if test="caseDefinitionId != null">
+        and RES.CASE_DEF_ID_ = #{caseDefinitionId}
+      </if>
       <if test="jobType != null">
         and RES.JOB_TYPE_ = #{jobType}
       </if>

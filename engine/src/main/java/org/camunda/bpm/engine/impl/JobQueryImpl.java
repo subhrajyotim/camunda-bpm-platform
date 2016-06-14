@@ -45,6 +45,8 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
   protected String executionId;
   protected String processDefinitionId;
   protected String processDefinitionKey;
+  protected String caseDefinitionId;
+  protected String caseDefinitionKey;
   protected boolean retriesLeft;
   protected boolean executable;
   protected boolean onlyTimers;
@@ -104,6 +106,18 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
   public JobQuery processDefinitionKey(String processDefinitionKey) {
     ensureNotNull("Provided process instance key", processDefinitionKey);
     this.processDefinitionKey = processDefinitionKey;
+    return this;
+  }
+
+  public JobQuery caseDefinitionId(String caseDefinitionId) {
+    ensureNotNull("Provided case definition id", caseDefinitionId);
+    this.caseDefinitionId = caseDefinitionId;
+    return this;
+  }
+
+  public JobQuery caseDefinitionKey(String caseDefinitionKey) {
+    ensureNotNull("Provided case instance key", caseDefinitionKey);
+    this.caseDefinitionKey = caseDefinitionKey;
     return this;
   }
 
@@ -281,6 +295,12 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
   public JobQuery orderByProcessDefinitionKey() {
     return orderBy(JobQueryProperty.PROCESS_DEFINITION_KEY);
   }
+
+  public JobQuery orderByCaseDefinitionId() {
+    return orderBy(JobQueryProperty.CASE_DEFINITION_ID);
+  }
+
+  public JobQuery orderByCaseDefinitionKey() { return orderBy(JobQueryProperty.CASE_DEFINITION_KEY); }
 
   public JobQuery orderByJobRetries() {
     return orderBy(JobQueryProperty.RETRIES);

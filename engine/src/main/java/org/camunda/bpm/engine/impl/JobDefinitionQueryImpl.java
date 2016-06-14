@@ -34,6 +34,8 @@ public class JobDefinitionQueryImpl extends AbstractQuery<JobDefinitionQuery, Jo
   protected String[] activityIds;
   protected String processDefinitionId;
   protected String processDefinitionKey;
+  protected String caseDefinitionId;
+  protected String caseDefinitionKey;
   protected String jobType;
   protected String jobConfiguration;
   protected SuspensionState suspensionState;
@@ -71,6 +73,18 @@ public class JobDefinitionQueryImpl extends AbstractQuery<JobDefinitionQuery, Jo
   public JobDefinitionQuery processDefinitionKey(String processDefinitionKey) {
     ensureNotNull("Process definition key", processDefinitionKey);
     this.processDefinitionKey = processDefinitionKey;
+    return this;
+  }
+
+  public JobDefinitionQuery caseDefinitionKey(String caseDefinitionKey){
+    ensureNotNull("Case definition key",caseDefinitionKey);
+    this.caseDefinitionKey=caseDefinitionKey;
+    return this;
+  }
+
+  public JobDefinitionQuery caseDefinitionId(String caseDefinitionId){
+    ensureNotNull("Case definition id",caseDefinitionId);
+    this.caseDefinitionId=caseDefinitionId;
     return this;
   }
 
@@ -137,6 +151,14 @@ public class JobDefinitionQueryImpl extends AbstractQuery<JobDefinitionQuery, Jo
     return orderBy(JobDefinitionQueryProperty.PROCESS_DEFINITION_KEY);
   }
 
+  public JobDefinitionQuery orderByCaseDefinitionKey(){
+    return orderBy(JobDefinitionQueryProperty.CASE_DEFINITION_KEY);
+  }
+
+  public JobDefinitionQuery orderByCaseDefinitionId(){
+    return orderBy(JobDefinitionQueryProperty.CASE_DEFINITION_ID);
+  }
+
   public JobDefinitionQuery orderByJobType() {
     return orderBy(JobDefinitionQueryProperty.JOB_TYPE);
   }
@@ -184,6 +206,10 @@ public class JobDefinitionQueryImpl extends AbstractQuery<JobDefinitionQuery, Jo
   public String getProcessDefinitionKey() {
     return processDefinitionKey;
   }
+
+  public String getCaseDefinitionId(){return caseDefinitionId;}
+
+  public String getCaseDefinitionKey(){return caseDefinitionKey;}
 
   public String getJobType() {
     return jobType;

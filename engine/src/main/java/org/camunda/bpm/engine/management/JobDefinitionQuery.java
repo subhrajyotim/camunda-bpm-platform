@@ -33,6 +33,12 @@ public interface JobDefinitionQuery extends Query<JobDefinitionQuery, JobDefinit
   /** Only select job definitions which exist for the given process definition key. **/
   JobDefinitionQuery processDefinitionKey(String processDefinitionKey);
 
+  /** Only select job definitions which exist for the given case definition key. **/
+  JobDefinitionQuery caseDefinitionKey(String caseDefinitionKey);
+
+  /** Only select job definitions which exist for the given case definition id. **/
+  JobDefinitionQuery caseDefinitionId(String caseDefinitionId);
+
   /** Only select job definitions which have the given job type. **/
   JobDefinitionQuery jobType(String jobType);
 
@@ -75,6 +81,12 @@ public interface JobDefinitionQuery extends Query<JobDefinitionQuery, JobDefinit
 
   /** Order by process definition key (needs to be followed by {@link #asc()} or {@link #desc()}). */
   JobDefinitionQuery orderByProcessDefinitionKey();
+
+  /** Order by case definition key (needs to be followed by {@link #asc()} or {@link #asc()}). **/
+  JobDefinitionQuery orderByCaseDefinitionKey();
+
+  /** Order by case definition id (needs to be followed by {@link #asc()} or {@link #asc()}). **/
+  JobDefinitionQuery orderByCaseDefinitionId();
 
   /** Order by job type (needs to be followed by {@link #asc()} or {@link #desc()}). */
   JobDefinitionQuery orderByJobType();
